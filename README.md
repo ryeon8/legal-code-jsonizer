@@ -1,5 +1,5 @@
 # legal-code-jsonizer
-https://www.code.go.kr/stdcode/regCodeL.do에서 제공하는 법정동코드 tsv 파일을 json 파일로 저장하거나 객체로 반환하는 패키지입니다.
+https://www.code.go.kr/stdcode/regCodeL.do 에서 제공하는 법정동코드 tsv 파일을 json 파일로 저장하거나 객체로 반환하는 패키지입니다.
 
 ## CLI USAGE
 npm i legal-code-jsonizer

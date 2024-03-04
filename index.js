@@ -49,6 +49,10 @@ function extractName(area) {
  * @returns 
  */
 function parseCodeTsvToJson(filePath) {
+  if (!filePath) {
+    filePath = path.join(__dirname, 'assets', 'legal_code_20230229.tsv');
+  }
+
   try {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const rows = fileContent.trim().split('\n');
@@ -101,14 +105,6 @@ if (require.main === module) {
     console.log('    please specify the absolute path of the legal district code TSV file as the first argument.');
   } else {
     let [, , tsvFilePath] = process.argv;
-
-    // filepath가 없는 경우는 내부에 존재하는 기본 파일로 법정동 추출.
-    if (!tsvFilePath) {
-      // console.error('Please provide a TSV file path');
-      // process.exit(1);
-
-      tsvFilePath = path.join(__dirname, 'assets', 'legal_code_20230229.tsv');
-    }
 
     const parsed = parseCodeTsvToJson(tsvFilePath);
     saveJsonToFile(parsed);

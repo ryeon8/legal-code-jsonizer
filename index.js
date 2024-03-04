@@ -62,8 +62,8 @@ function parseCodeTsvToJson(filePath) {
         const area = {
           fullCode: cols[0],
           cityCode: cols[0].substring(0, 2),
-          subCode: cols[0].substring(2, 4),
-          code: cols[0].substring(4),
+          subCode: cols[0].substring(2, 5),
+          code: cols[0].substring(5),
           fullName: cols[1],
           isAlive: cols[2].trim() === '존재'
         }

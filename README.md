@@ -10,6 +10,6 @@ npx lcj {선택: 법정동코드 tsv 파일 경로}
 
 ## CODE USAGE
 ```
-const { parseCodeTsvToJson } = require('legal-code-jsonizer');
-const json = parseCodeTsvToJson(path.join(__dirname, '선택: 법정동코드 tsv 파일 경로'));
+const { lcj } = require('legal-code-jsonizer'); 
+const json = lcj(path.join(__dirname, '선택: 법정동코드 tsv 파일 경로'));
 ```

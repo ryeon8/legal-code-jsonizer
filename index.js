@@ -111,4 +111,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseCodeTsvToJson };
+module.exports = { parseCodeTsvToJson, lcj: parseCodeTsvToJson };

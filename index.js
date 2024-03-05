@@ -24,13 +24,7 @@ function removeTailCode(code) {
 
 function extractName(area) {
   const nameTokens = area.fullName.split(' ');
-  if (area.fullCode === area.cityCode + '00000000' || nameTokens.length == 1) {
-    return nameTokens[0];
-  } else if (area.fullCode === area.cityCode + area.gunCode + '000000' || nameTokens.length === 2) {
-    return nameTokens[1];
-  } else {
-    return nameTokens.slice(2).join(' ');
-  }
+  return nameTokens[nameTokens.length - 1];
 }
 
 /**

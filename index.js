@@ -37,20 +37,23 @@ function extractName(area) {
  * 법정동코드 tsv 파일을 json 객체로 반환.
  * 반환하는 json 구조는 
  * {
- *  fullCode: 법정동코드. tsv 파일 첫 번째 컬럼,
- *  cityCode: 법정동코드 앞 2자리. 1111010700라면 첫 두 글자인 11에 해당,
- *  subCode: 법정동코드 중간 2자리. 1111010700라면 첫 두 글자 다음 글자인 11에 해당,
- *  code: 법정동코드에서 cityCode, subCode를 제외한 코드,
+ *  fullCode: 법정동 코드. tsv 파일 첫 번째 컬럼,
  *  fullName: 법정동명. tsv 파일 두 번째 컬럼,
+ *  cityCode: 법정동 시 코드. 2자리,
+ *  subCode: 법정동 군/구 코드. 3자리, 
+ *  sub2Code: 법정동 읍/면 코드. 3자리,
+ *  code: 법정동 리 코드. 2자리,
  *  name: 법정동명. 시군구 전체 명칭에서 현재 code에 해당하는 세부 지역명. 서울특별시 종로구 적선동이라면 적선동을, 서울특별시 종로구라면 종로구를 반환,
+ *  type: 시/군/구/읍/면/리. 서울특별시 코드라면 시, 대구광역시 북구 코드라면 구를 반환,
  *  isAlive: boolean, 폐지 여부. true: tsv 파일 세 번째 컬럼값이 존재인 경우.
  * }
- * @param {*} filePath 
- * @returns 
+ * 
+ * @param filePath 변환 대상 tsv 파일 경로. 미입력 시 202207 기준 공시지가 파일을 이용해 생성.
+ * @returns tsv > json
  */
 function parseCodeTsvToJson(filePath) {
   if (!filePath) {
-    filePath = path.join(__dirname, 'assets', 'legal_code_20230229.tsv');
+    filePath = path.join(__dirname, 'assets', 'legal_code_202207.tsv');
   }
 
   try {
@@ -61,13 +64,15 @@ function parseCodeTsvToJson(filePath) {
       .map(cols => {
         const area = {
           fullCode: cols[0],
+          fullName: cols[1],
           cityCode: cols[0].substring(0, 2),
           subCode: cols[0].substring(2, 5),
-          code: cols[0].substring(5),
-          fullName: cols[1],
+          sub2Code: cols[0].substring(5, 8),
+          code: cols[0].substring(8),
           isAlive: cols[2].trim() === '존재'
         }
         area.name = extractName(area);
+        area.type = area.name.substring(area.name.length - 1);
 
         return area;
       });
